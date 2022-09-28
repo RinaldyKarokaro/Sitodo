@@ -8,10 +8,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.TEXT_HTML;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -24,6 +26,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.example.sitodo.model.TodoItem;
 import com.example.sitodo.service.TodoListService;
+import com.google.common.net.MediaType;
 
 @WebMvcTest(TodoListController.class)
 @Tag("unit")
@@ -70,5 +73,24 @@ public class TodoListControllerTest {
             content().encoding(UTF_8),
             content().string(containsString("Buy milk"))
         );
+    }
+    
+//    @Test
+//    @DisplayName("HTTP POST")
+//    void addList_correctView() throws Exception {
+//    	mockMvc.perform(post("/list")
+//                .content("text"))
+//                .andDo(print())
+//                .andExpect(status().is3xxRedirection());
+//    }
+    
+    @Test
+    @DisplayName("HTTP POST")
+    void addList_withsample() throws Exception {
+        TodoItem mockTodoItem = new TodoItem("Buy milk");
+        when(todoListService.addTodoItem(mockTodoItem)).thenReturn(mockTodoItem);
+        
+        mockMvc.perform(post("/list").param("item_text", "text")).andExpectAll(status().is3xxRedirection()
+        		);
     }
 }

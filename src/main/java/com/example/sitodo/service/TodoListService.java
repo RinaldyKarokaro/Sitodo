@@ -52,13 +52,29 @@ public class TodoListService {
         Optional<TodoList> result = todoListRepository.findById(listId);
 
         // TODO: Implement me!
-        return null;
+        TodoList foundList = result.get();
+        for(int i = 0; i < foundList.getItems().size(); i++) {
+        	if(foundList.getItems().get(i).getId().equals(itemId)) {
+        		foundList.getItems().get(i).setFinished(status);
+        	}
+        }
+
+        return todoListRepository.save(foundList);
     }
 
     public Boolean deleteTodoItem(Long listId, Long itemId) throws NoSuchElementException {
         Optional<TodoList> result = todoListRepository.findById(listId);
 
-        // TODO: Implement me!
+        TodoList todoList = result.get();
+        int id = 0;
+        for(int i = 0; i < todoList.getItems().size(); i++) {
+        	if(todoList.getItems().get(i).getId().equals(itemId)) {
+        		id=i;
+        	}
+        }
+        
+        todoList.getItems().remove(id);
+        todoListRepository.save(todoList);
         return Boolean.FALSE;
     }
 }

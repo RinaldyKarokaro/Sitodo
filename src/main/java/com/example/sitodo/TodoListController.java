@@ -59,7 +59,9 @@ public class TodoListController {
     public String updateItem(@PathVariable("list_id") Long listId,
                              @PathVariable("item_id") Long itemId,
                              @RequestParam("finished") Boolean finished) {
-        return ""; // TODO: Implement me!
+    	TodoList updated = todoListService.updateTodoItem(listId, itemId, finished);
+
+        return redirectToList(updated.getId()); // TODO: Implement me!
     }
 
     // TODO: Create a method named deleteItem() that will remove a todo item from a todo list.

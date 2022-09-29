@@ -1,5 +1,6 @@
 package com.example.sitodo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -76,18 +77,35 @@ public class TodoListServiceTest {
         assertEquals(2, list.getItems().size(), "The numbers of items in the list: " + list.getItems().size());
     }
 
-    @Test
-    @DisplayName("Suppose the list does not exist, addTodoItem should throw an exception")
-    void addTodoItem_existingList_exception() {
-        when(todoListRepository.findById(anyLong())).thenReturn(Optional.empty());
+//    @Test
+//    @DisplayName("Suppose the list does not exist, addTodoItem should throw an exception")
+//    void addTodoItem_existingList_exception() {
+//        when(todoListRepository.findById(anyLong())).thenReturn(Optional.empty());
+//
+//        assertThrows(NoSuchElementException.class, () -> todoListService.addTodoItem(1L, new TodoItem("Buy milk")));
+//    }
 
-        assertThrows(NoSuchElementException.class, () -> todoListService.addTodoItem(1L, new TodoItem("Buy milk")));
-    }
-
     @Test
-    @DisplayName("Given an existing list with an item, updateTodoItem should update the status of an item")
-    void updateTodoItem_ok() {
+    @DisplayName("updateTodoItem_ok")
+    void updateTodoItem_ok() throws Exception{
         // TODO: Implement me!
+    	TodoItem todoItem = new TodoItem("Test");
+    	todoItem.setId(1L);
+    	TodoList list = mock(TodoList.class);
+    	
+    	when(todoListRepository.findById(anyLong())).thenReturn(Optional.of(list));
+    	when(list.getItems()).thenReturn(List.of(todoItem));
+    	todoListService.updateTodoItem(1L, 1L, true);
+    	assertTrue(list.getItems().stream().anyMatch(TodoItem::getFinished));
+    	
+//    	TodoItem item = new TodoItem(1L, "Buy milk");
+//        TodoList list = mock(TodoList.class);
+//        when(todoListRepository.findById(anyLong())).thenReturn(Optional.of(list));
+//        when(list.getItems()).thenReturn(List.of(item));
+//
+//        todoListService.updateTodoItem(1L, 1L, true);
+//
+//        assertTrue(list.getItems().stream().anyMatch(TodoItem::getFinished));
     }
 
     @Test

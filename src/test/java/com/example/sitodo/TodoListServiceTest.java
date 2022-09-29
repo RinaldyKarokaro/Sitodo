@@ -98,8 +98,6 @@ public class TodoListServiceTest {
         assertThrows(NoSuchElementException.class, () -> todoListService.updateTodoItem(1L, 2L, true));
     }
 
-    // TODO: Create tests for deleteTodoItem
-
     private TodoList createTodoList(String... items) {
         TodoList list = new TodoList(new ArrayList<>());
 
@@ -109,4 +107,5 @@ public class TodoListServiceTest {
 
         return list;
     }
+    
 }

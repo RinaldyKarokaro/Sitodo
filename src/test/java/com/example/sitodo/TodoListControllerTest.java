@@ -85,11 +85,11 @@ public class TodoListControllerTest {
         );
     }
 
-    @Test
-    @DisplayName("HTTP GET '/list/{id}/update/{item_id}' successfully updated status of an item")
-    void updateItem_ok() throws Exception {
-        // TODO: Implement me!
-    }
+//    @Test
+//    @DisplayName("HTTP GET '/list/{id}/update/{item_id}' successfully updated status of an item")
+//    void updateItem_ok() throws Exception {
+//        // TODO: Implement me!
+//    }
 
     // TODO: Create the tests for ensuring the correctness of deleteItem() method from the controller.
 
